@@ -36,7 +36,10 @@ public class Board {
       return this.falling;
     }
 
-    public void drop (Block block){
+    public void drop (Block block) throws IllegalStateException {
+      if (this.falling) {
+        throw new IllegalStateException("already falling");
+      }
       this.block = block;
       this.falling = true;
     }
