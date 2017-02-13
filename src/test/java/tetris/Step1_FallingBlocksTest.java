@@ -79,11 +79,11 @@ public class Step1_FallingBlocksTest extends Assert {
     }
 
 
-/*
+
     public class When_a_block_reaches_the_bottom {
 
         @Before
-        public void fallToLastRow() {
+        public void fallToLastRow() throws IllegalStateException{
             board.drop(new Block('X'));
             board.tick();
             board.tick();
@@ -108,7 +108,7 @@ public class Step1_FallingBlocksTest extends Assert {
 //            assertFalse("the block should stop moving", board.hasFalling());
 //        }
     }
-*/
+
 
 /*
     public class When_a_block_lands_on_another_block {
