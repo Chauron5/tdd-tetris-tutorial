@@ -45,6 +45,10 @@ public class Board {
     }
 
     public void tick(){
-      this.tickNum+=4;
+      if (this.tickNum == 9){
+        this.falling = false;
+      } else {
+        this.tickNum+=4;
+      }
     }
 }
