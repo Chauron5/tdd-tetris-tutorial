@@ -7,7 +7,7 @@ public class Block {
     this.X = c;
   }
 
-  public char getX(){
+  public char getValue(){
     return this.X;
   }
 }

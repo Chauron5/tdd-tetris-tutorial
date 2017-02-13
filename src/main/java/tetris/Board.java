@@ -4,6 +4,11 @@
 
 package tetris;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Iterator;
+import java.util.Set;
+
 public class Board {
 
     private final int rows;
@@ -11,10 +16,13 @@ public class Board {
     private boolean falling = false;
     private Block block = null;
     private int tickNum = 1;
+    private int numBlocks = 0;
+    private HashMap<Integer, Character> blocks;
 
     public Board(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
+        blocks = new HashMap();
     }
 
     public String toString() {
@@ -27,7 +35,15 @@ public class Board {
         }
         char[] ca = s.toCharArray();
         if (block != null){
-          ca[this.tickNum] = block.getX();
+          ca[this.tickNum] = block.getValue();
+          if (this.blocks.isEmpty() == false && this.numBlocks > 1) {
+            Set set = blocks.entrySet();
+            Iterator iterator = set.iterator();
+            while(iterator.hasNext()) {
+              Map.Entry mentry = (Map.Entry)iterator.next();
+              ca[(int) mentry.getKey()] = (char) mentry.getValue();
+            }
+          }
         }
         return new String(ca);
     }
@@ -40,6 +56,8 @@ public class Board {
       if (this.falling) {
         throw new IllegalStateException("already falling");
       }
+      this.numBlocks++;
+      this.tickNum = 1;
       this.block = block;
       this.falling = true;
     }
@@ -47,6 +65,7 @@ public class Board {
     public void tick(){
       if (this.tickNum == 9){
         this.falling = false;
+        this.blocks.put(this.tickNum, block.getValue());
       } else {
         this.tickNum+=4;
       }
