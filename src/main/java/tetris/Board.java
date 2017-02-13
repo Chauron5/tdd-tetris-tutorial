@@ -10,6 +10,7 @@ public class Board {
     private final int columns;
     private boolean falling = false;
     private Block block = null;
+    private int tickNum = 1;
 
     public Board(int rows, int columns) {
         this.rows = rows;
@@ -26,7 +27,7 @@ public class Board {
         }
         char[] ca = s.toCharArray();
         if (block != null){
-          ca[1] = block.getX();
+          ca[this.tickNum] = block.getX();
         }
         return new String(ca);
     }
@@ -38,5 +39,9 @@ public class Board {
     public void drop (Block block){
       this.block = block;
       this.falling = true;
+    }
+
+    public void tick(){
+      this.tickNum+=4;
     }
 }
