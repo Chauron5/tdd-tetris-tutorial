@@ -1,9 +1,13 @@
 package tetris;
 
 public class Block {
-  char atr1;
+  private char X;
 
   public Block(char c){
-    this.atr1 = c;
+    this.X = c;
+  }
+
+  public char getX(){
+    return this.X;
   }
 }

@@ -9,6 +9,7 @@ public class Board {
     private final int rows;
     private final int columns;
     private boolean falling = false;
+    private Block block = null;
 
     public Board(int rows, int columns) {
         this.rows = rows;
@@ -23,7 +24,11 @@ public class Board {
             }
             s += "\n";
         }
-        return s;
+        char[] ca = s.toCharArray();
+        if (block != null){
+          ca[1] = block.getX();
+        }
+        return new String(ca);
     }
 
     public boolean hasFalling(){
@@ -31,6 +36,7 @@ public class Board {
     }
 
     public void drop (Block block){
+      this.block = block;
       this.falling = true;
     }
 }

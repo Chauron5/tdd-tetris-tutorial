@@ -50,13 +50,13 @@ public class Step1_FallingBlocksTest extends Assert {
             assertTrue(board.hasFalling());
         }
 
-//        @Test
-//        public void it_starts_from_the_top_middle() {
-//            assertEquals("" +
-//                    ".X.\n" +
-//                    "...\n" +
-//                    "...\n", board.toString());
-//        }
+       @Test
+       public void it_starts_from_the_top_middle() {
+           assertEquals("" +
+                   ".X.\n" +
+                   "...\n" +
+                   "...\n", board.toString());
+       }
 
 //        @Test
 //        public void it_moves_down_one_row_per_tick() {
