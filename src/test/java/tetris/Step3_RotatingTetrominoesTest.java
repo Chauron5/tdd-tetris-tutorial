@@ -215,71 +215,71 @@ public class Step3_RotatingTetrominoesTest extends Assert {
                        "...\n", shape.toString());
       }
 
-      // @Test
-      // public void the_O_shape_can_be_rotated_right_four_times() {
-      //     createOShape();
-      //     shape = shape.rotateRight();
-      //     assertEquals("" +
-      //                  "...\n" +
-      //                  ".OO\n" +
-      //                  ".OO\n", shape.toString());
-      //     shape = shape.rotateRight();
-      //     assertEquals("" +
-      //                  "...\n" +
-      //                  "OO.\n" +
-      //                  "OO.\n", shape.toString());
-      //     shape = shape.rotateRight();
-      //     assertEquals("" +
-      //                  "OO.\n" +
-      //                  "OO.\n" +
-      //                  "...\n", shape.toString());
-      //     shape = shape.rotateRight();
-      //     assertEquals("" +
-      //                  ".OO\n" +
-      //                  ".OO\n" +
-      //                  "...\n", shape.toString());
-      // }
-      //
-      // @Test
-      // public void the_O_shape_can_be_rotated_left_four_times() {
-      //     createOShape();
-      //     shape = shape.rotateLeft();
-      //     assertEquals("" +
-      //                  "OO.\n" +
-      //                  "OO.\n" +
-      //                  "...\n", shape.toString());
-      //     shape = shape.rotateLeft();
-      //     assertEquals("" +
-      //                  "...\n" +
-      //                  "OO.\n" +
-      //                  "OO.\n", shape.toString());
-      //     shape = shape.rotateLeft();
-      //     assertEquals("" +
-      //                  "...\n" +
-      //                  ".OO\n" +
-      //                  ".OO\n", shape.toString());
-      //     shape = shape.rotateLeft();
-      //     assertEquals("" +
-      //                  ".OO\n" +
-      //                  ".OO\n" +
-      //                  "...\n", shape.toString());
-      // }
+      @Test
+      public void the_O_shape_can_be_rotated_right_four_times() {
+          createOShape();
+          shape = shape.rotateRight();
+          assertEquals("" +
+                       "...\n" +
+                       ".OO\n" +
+                       ".OO\n", shape.toString());
+          shape = shape.rotateRight();
+          assertEquals("" +
+                       "...\n" +
+                       "OO.\n" +
+                       "OO.\n", shape.toString());
+          shape = shape.rotateRight();
+          assertEquals("" +
+                       "OO.\n" +
+                       "OO.\n" +
+                       "...\n", shape.toString());
+          shape = shape.rotateRight();
+          assertEquals("" +
+                       ".OO\n" +
+                       ".OO\n" +
+                       "...\n", shape.toString());
+      }
 
-      // @Test
-      // public void the_O_shape_rotating_it_four_times_will_get_back_to_the_original_shape() {
-      //     createOShape();
-      //     String originalShape = shape.toString();
-      //     shape = shape.rotateRight().rotateRight().rotateRight().rotateRight();
-      //     assertEquals(originalShape, shape.toString());
-      //     shape = shape.rotateLeft().rotateLeft().rotateLeft().rotateLeft();
-      //     assertEquals(originalShape, shape.toString());
-      // }
-      //
-      // @Test
-      // public void the_O_shape_rotating_it_twice_right_or_left_is_equivalent() {
-      //     createOShape();
-      //     assertEquals(shape.rotateRight().rotateRight().toString(),
-      //                  shape.rotateLeft().rotateLeft().toString());
-      // }
+      @Test
+      public void the_O_shape_can_be_rotated_left_four_times() {
+          createOShape();
+          shape = shape.rotateLeft();
+          assertEquals("" +
+                       "OO.\n" +
+                       "OO.\n" +
+                       "...\n", shape.toString());
+          shape = shape.rotateLeft();
+          assertEquals("" +
+                       "...\n" +
+                       "OO.\n" +
+                       "OO.\n", shape.toString());
+          shape = shape.rotateLeft();
+          assertEquals("" +
+                       "...\n" +
+                       ".OO\n" +
+                       ".OO\n", shape.toString());
+          shape = shape.rotateLeft();
+          assertEquals("" +
+                       ".OO\n" +
+                       ".OO\n" +
+                       "...\n", shape.toString());
+      }
+
+      @Test
+      public void the_O_shape_rotating_it_four_times_will_get_back_to_the_original_shape() {
+          createOShape();
+          String originalShape = shape.toString();
+          shape = shape.rotateRight().rotateRight().rotateRight().rotateRight();
+          assertEquals(originalShape, shape.toString());
+          shape = shape.rotateLeft().rotateLeft().rotateLeft().rotateLeft();
+          assertEquals(originalShape, shape.toString());
+      }
+
+      @Test
+      public void the_O_shape_rotating_it_twice_right_or_left_is_equivalent() {
+          createOShape();
+          assertEquals(shape.rotateRight().rotateRight().toString(),
+                       shape.rotateLeft().rotateLeft().toString());
+      }
     }
  }
