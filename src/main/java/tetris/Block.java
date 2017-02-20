@@ -10,4 +10,8 @@ public class Block {
   public char getValue(){
     return this.X;
   }
+
+  public String toString(){
+    return new String(""+this.X);
+  }
 }
