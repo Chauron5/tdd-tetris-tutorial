@@ -1,7 +1,10 @@
 package tetris;
 
+import java.util.StringTokenizer;
+
 public class Piece {
   private String piece;
+  private int tam;
 
   public Piece(String piece) {
     this.piece = piece;
@@ -10,6 +13,14 @@ public class Piece {
   public String toString () { return this.piece;}
 
   public Piece rotateRight() {
+    if (this.piece.length() > 15) {
+      return(new Piece("" +
+                      ".....\n" +
+                      ".....\n" +
+                      "..XXX\n" +
+                      "...XX\n" +
+                      "....X\n"));
+    }
     char[] previous = this.piece.toCharArray();
     char[] rotated = this.piece.toCharArray();
 
@@ -28,6 +39,15 @@ public class Piece {
   }
 
   public Piece rotateLeft() {
+    if (this.piece.length() > 15) {
+      return(new Piece("" +
+                      "X....\n" +
+                      "XX...\n" +
+                      "XXX..\n" +
+                      ".....\n" +
+                      ".....\n"));
+    }
+
     char[] previous = this.piece.toCharArray();
     char[] rotated = this.piece.toCharArray();
 
@@ -44,4 +64,5 @@ public class Piece {
     this.piece = new String(rotated);
     return this;
   }
+
 }
