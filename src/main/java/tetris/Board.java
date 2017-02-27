@@ -138,23 +138,23 @@ public class Board {
       return column;
     }
 
-    private boolean is_column_empty(int index){
-      char[] column = getColumn(index);
-
-      for(char c: column){
-        if (c != '.') return false;
+    private boolean falling_block_is_at_column(int column){
+      for (int i=0; i < this.rows; i++){
+        if(falling_block_is_at(i,column)){
+          return true;
+        }
       }
-      return true;
+      return false;
     }
 
     public void moveLeft() {
-      if (is_column_empty(0)) {
+      if (!falling_block_is_at_column(0)) {
         this.current_block_column--;
       }
     }
 
     public void moveRigth() {
-      if (is_column_empty(this.columns-1)){
+      if (!falling_block_is_at_column(this.columns-1)){
         this.current_block_column++;
       }
     }
