@@ -80,7 +80,27 @@ public class Step5_MovingAFallingPieceTest extends Assert {
               "........\n" +
               "........\n", board.toString());
     }
-    // TODO: it will not move right over the board
+
+  @Test
+  public void it_will_not_move_right_over_the_board() {
+    board.moveRigth();
+    board.moveRigth();
+    assertEquals("" +
+            "......T.\n" +
+            ".....TTT\n" +
+            "........\n" +
+            "........\n" +
+            "........\n" +
+            "........\n", board.toString());
+    board.moveRigth();
+    assertEquals("" +
+            "......T.\n" +
+            ".....TTT\n" +
+            "........\n" +
+            "........\n" +
+            "........\n" +
+            "........\n", board.toString());
+  }
     // TODO: it will not move down over the board (will stop falling)
     // TODO: it cannot be moved left if another piece is in the way
     // TODO: it cannot be moved right if another piece is in the way
