@@ -1,73 +1,127 @@
-// Copyright (c) 2008-2015  Esko Luontola <www.orfjackal.net>
-// You may use and modify this source code freely for personal non-commercial use.
-// This source code may NOT be used as course material without prior written agreement.
-
 package tetris;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.Set;
 
 public class Board {
 
+    public  static final String ALREADY_FALLING = "already falling";
+
     private final int rows;
     private final int columns;
-    private boolean falling = false;
-    private Block block = null;
-    private int tickNum = 1;
-    private int numBlocks = 0;
-    private HashMap<Integer, Character> blocks;
+    private BoardPiece falling_block;
+    private int current_block_row;
+    private int current_block_column;
+    private char board[][];
+    private boolean last_tick;
 
     public Board(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
-        blocks = new HashMap();
+        this.falling_block = null;
+        this.board = new char[rows][columns];
+        fill_with(board, BoardPiece.EMPTY);
+        this.last_tick = false;
     }
 
     public String toString() {
         String s = "";
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < columns; col++) {
-                s += ".";
+        for (int i=0; i<board.length; i++) {
+            for (int j=0; j<board[0].length; j++) {
+                if (falling_block_is_at(i,j)) {
+                    char block[][] = new char[falling_block.width()][falling_block.height()];
+                    fill_with(block, falling_block.toString());
+                    s += block[(i-current_block_row)][(j-current_block_column)];
+                } else {
+                    char c[] = { board[i][j] };
+                    s += new String(c);
+                }
             }
             s += "\n";
         }
-        char[] ca = s.toCharArray();
-        if (block != null){
-          ca[this.tickNum] = block.getValue();
-          if (this.blocks.isEmpty() == false && this.numBlocks > 1) {
-            Set set = blocks.entrySet();
-            Iterator iterator = set.iterator();
-            while(iterator.hasNext()) {
-              Map.Entry mentry = (Map.Entry)iterator.next();
-              ca[(int) mentry.getKey()] = (char) mentry.getValue();
-            }
-          }
+        return s;
+    }
+
+    public boolean hasFalling() {
+        return (falling_block != null);
+    }
+
+    public void drop(BoardPiece b) throws IllegalStateException {
+        if ((falling_block == null) || (last_tick)) {
+            falling_block = b;
+            current_block_row = 0;
+            current_block_column = (this.columns / 2) - (b.width() / 2);
+        } else {
+            throw new IllegalStateException(Board.ALREADY_FALLING);
         }
-        return new String(ca);
     }
 
-    public boolean hasFalling(){
-      return this.falling;
+    public void tick() {
+        if (falling_block != null) {
+            if (!last_tick) {
+                current_block_row++;
+                if (reached_bottom() || touched_another_block()) {
+                    last_tick = true;
+                }
+            } else {
+                fill_with(board, toString());
+                falling_block = null;
+                last_tick = false;
+            }
+        }
     }
 
-    public void drop (Block block) throws IllegalStateException {
-      if (this.falling) {
-        throw new IllegalStateException("already falling");
-      }
-      this.numBlocks++;
-      this.tickNum = 1;
-      this.block = block;
-      this.falling = true;
+    private void fill_with(char matrix[][], char c) {
+        for (int i=0; i<matrix.length; i++) {
+            for (int j=0; j<matrix[0].length; j++) {
+                matrix[i][j] = c;
+            }
+        }
     }
 
-    public void tick(){
-      if (this.tickNum == 9){
-        this.falling = false;
-        this.blocks.put(this.tickNum, block.getValue());
-      } else {
-        this.tickNum+=4;
-      }
+    private void fill_with(char matrix[][], String s) {
+        String[] rows = s.split("\n");
+        for (int i=0; i<rows.length; i++) {
+            char[] column = rows[i].toCharArray();
+            for (int j=0; j<column.length; j++) {
+                matrix[i][j] = column[j];
+            }
+        }
     }
+
+    private boolean reached_bottom() {
+        int reached_row = current_block_row;
+        String[] s = falling_block.toString().split("\n");
+
+        for (int i=0; i<s.length; i++) {
+            if (s[i].replace(BoardPiece.EMPTY, ' ').trim().length() != 0) {
+                reached_row++;
+            }
+        }
+
+        return (reached_row == rows);
+    }
+
+    private boolean touched_another_block() {
+        for (int i=0; i<rows-1; i++) {
+            for (int j=0; j<columns; j++) {
+                if ((board[i+1][j] != BoardPiece.EMPTY) &&
+                    falling_block_is_at(i, j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean falling_block_is_at(int row, int column) {
+        if (falling_block != null) {
+            return ((current_block_row <= row) &&
+                    (row < current_block_row + falling_block.height()) &&
+                    (current_block_column <= column) &&
+                    (column < current_block_column + falling_block.width()) &&
+                    (!falling_block.is_hollow_at(row - current_block_row,
+                                                 column - current_block_column + falling_block.width()/2 - 1)));
+        } else {
+            return false;
+        }
+    }
+
 }

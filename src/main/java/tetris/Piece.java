@@ -1,6 +1,6 @@
 package tetris;
 
-public class Piece {
+public class Piece implements BoardPiece{
 
     private Block[][] blocks;
 
@@ -31,12 +31,16 @@ public class Piece {
     }
 
     public int width() {
-        return blocks[0].length;
-    }
+       return blocks[0].length;
+   }
 
-    public int height() {
-        return blocks.length;
-    }
+   public int height() {
+       return blocks.length;
+   }
+
+   public boolean is_hollow_at(int i, int j) {
+       return blocks[i][j].toString().equals(String.valueOf(BoardPiece.EMPTY));
+   }
 
     public Piece rotateRight() { // transpose + reverse each row
         return new Piece(reverse_rows(transpose(blocks)));
