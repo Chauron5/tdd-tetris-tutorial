@@ -124,4 +124,42 @@ public class Board {
         }
     }
 
+    private char[] getColumn(int index) {
+      char[] column = new char[this.rows];
+
+      for (int i = 0 ; i < this.rows ; i++) {
+          for (int j = 0 ; j < this.columns; j++) {
+            if (j == index) {
+              column[i]= board[i][j];
+            }
+          }
+      }
+
+      return column;
+    }
+
+    private boolean is_column_empty(int index){
+      char[] column = getColumn(index);
+
+      for(char c: column){
+        if (c != '.') return false;
+      }
+      return true;
+    }
+
+    public void moveLeft() {
+      if (is_column_empty(0)) {
+        this.current_block_column--;
+      }
+    }
+
+    public void moveRigth() {
+      if (is_column_empty(this.columns-1)){
+        this.current_block_column++;
+      }
+    }
+
+    public void moveDown() {
+      this.tick();
+    }
 }

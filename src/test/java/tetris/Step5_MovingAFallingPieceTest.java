@@ -8,7 +8,6 @@ import net.orfjackal.nestedjunit.NestedJUnit;
 import org.junit.*;
 import org.junit.runner.RunWith;
 
-@Ignore("contains no test")
 @RunWith(NestedJUnit.class)
 public class Step5_MovingAFallingPieceTest extends Assert {
 
@@ -17,9 +16,48 @@ public class Step5_MovingAFallingPieceTest extends Assert {
     // - The test names have been provided, you just need to fill in the test body
     // - Next step: RotatingAFallingPieceTest
 
-    // TODO: a falling piece can be moved left
-    // TODO: a falling piece can be moved right
-    // TODO: a falling piece can be moved down
+    private final Board board = new Board(6, 8);
+
+    @Before
+    public void dropPiece() {
+        board.drop(Tetromino.T_SHAPE);
+    }
+
+    @Test
+    public void a_falling_piece_can_be_moved_left(){
+      board.moveLeft();
+      assertEquals("" +
+              "...T....\n" +
+              "..TTT...\n" +
+              "........\n" +
+              "........\n" +
+              "........\n" +
+              "........\n", board.toString());
+    }
+
+    @Test
+    public void a_falling_piece_can_be_moved_right() {
+      board.moveRigth();
+      assertEquals("" +
+              ".....T..\n" +
+              "....TTT.\n" +
+              "........\n" +
+              "........\n" +
+              "........\n" +
+              "........\n", board.toString());
+    }
+
+    @Test
+    public void a_falling_piece_can_be_moved_down() {
+      board.moveDown();
+      assertEquals("" +
+              "........\n" +
+              "....T...\n" +
+              "...TTT..\n" +
+              "........\n" +
+              "........\n" +
+              "........\n" , board.toString());
+    }
     // TODO: it will not move left over the board
     // TODO: it will not move right over the board
     // TODO: it will not move down over the board (will stop falling)
