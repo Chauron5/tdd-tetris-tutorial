@@ -117,11 +117,9 @@ public class Board {
       }
       for(int i = 0; i < rows-1; i++){
         for(int j = 0; j < columns; j++){
-          if(falling_block_is_at_column(j)){
-            if(falling_block_is_at(i,j)){
-              if (board[i][j-1] != BoardPiece.EMPTY){
-                return false;
-              }
+          if(falling_block_is_at(i,j)){
+            if (board[i][j-1] != BoardPiece.EMPTY){
+              return false;
             }
           }
         }
@@ -135,11 +133,9 @@ public class Board {
       }
       for(int i = 0; i < rows-1; i++){
         for(int j = columns-1; j >= 0; j--){
-          if(falling_block_is_at_column(j)){
-            if(falling_block_is_at(i,j)){
-              if (board[i][j+1] != BoardPiece.EMPTY){
-                return false;
-              }
+          if(falling_block_is_at(i,j)){
+            if (board[i][j+1] != BoardPiece.EMPTY){
+              return false;
             }
           }
         }
@@ -158,20 +154,6 @@ public class Board {
         } else {
             return false;
         }
-    }
-
-    private char[] getColumn(int index) {
-      char[] column = new char[this.rows];
-
-      for (int i = 0 ; i < this.rows ; i++) {
-          for (int j = 0 ; j < this.columns; j++) {
-            if (j == index) {
-              column[i]= board[i][j];
-            }
-          }
-      }
-
-      return column;
     }
 
     private boolean falling_block_is_at_column(int column){
