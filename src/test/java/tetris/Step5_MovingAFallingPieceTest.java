@@ -124,7 +124,36 @@ public class Step5_MovingAFallingPieceTest extends Assert {
             "....T...\n" +
             "...TTT..\n" , board.toString());
   }
-    // TODO: it cannot be moved left if another piece is in the way
+
+  @Test
+  public void it_cannot_be_moved_left_if_another_piece_is_in_the_way() {
+    board.moveLeft();
+    board.tick();
+    board.tick();
+    board.tick();
+    board.tick();
+    board.tick();
+    board.drop(Tetromino.O_SHAPE);
+    board.tick();
+    board.tick();
+    board.tick();
+    assertEquals("" +
+            "........\n" +
+            "........\n" +
+            "........\n" +
+            "....OO..\n" +
+            "...TOO..\n" +
+            "..TTT...\n" ,board.toString());
+    board.moveLeft();
+    assertEquals("" +
+            "........\n" +
+            "........\n" +
+            "........\n" +
+            "....OO..\n" +
+            "...TOO..\n" +
+            "..TTT...\n" ,board.toString());
+
+  }
     // TODO: it cannot be moved right if another piece is in the way
     // TODO: it cannot be moved down if another piece is in the way (will stop falling)
 

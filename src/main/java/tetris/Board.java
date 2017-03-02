@@ -111,6 +111,24 @@ public class Board {
         return false;
     }
 
+    public boolean can_move_left() {
+      if (falling_block_is_at_column(0)) {
+        return false;
+      }
+      for(int i = 0; i < rows-1; i++){
+        for(int j = 0; j < columns; j++){
+          if(falling_block_is_at_column(j)){
+            if(falling_block_is_at(i,j)){
+              if (board[i][j-1] != BoardPiece.EMPTY){
+                return false;
+              }
+            }
+          }
+        }
+      }
+      return true;
+    }
+
     private boolean falling_block_is_at(int row, int column) {
         if (falling_block != null) {
             return ((current_block_row <= row) &&
@@ -148,7 +166,7 @@ public class Board {
     }
 
     public void moveLeft() {
-      if (!falling_block_is_at_column(0)) {
+      if (can_move_left()) {
         this.current_block_column--;
       }
     }
