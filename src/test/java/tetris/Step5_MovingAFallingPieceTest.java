@@ -183,8 +183,31 @@ public class Step5_MovingAFallingPieceTest extends Assert {
            "....OOT.\n" +
            ".....TTT\n" ,board.toString());
  }
-    // TODO: it cannot be moved down if another piece is in the way (will stop falling)
 
-    // P.S. Take into consideration, that part of the piece's area may be empty cells.
-    // Only non-empty cells should take part in the collision checks.
+@Test
+public void it_cannot_be_moved_down_if_another_piece_is_in_the_way() {
+    board.tick();
+    board.tick();
+    board.tick();
+    board.tick();
+    board.tick();
+    board.drop(Tetromino.O_SHAPE);
+    board.moveDown();
+    board.moveDown();
+    assertEquals("" +
+            "........\n" +
+            "........\n" +
+            "....OO..\n" +
+            "....OO..\n" +
+            "....T...\n" +
+            "...TTT..\n" ,board.toString());
+    board.moveDown();
+    assertEquals("" +
+            "........\n" +
+            "........\n" +
+            "....OO..\n" +
+            "....OO..\n" +
+            "....T...\n" +
+            "...TTT..\n" ,board.toString());
+ }
 }
