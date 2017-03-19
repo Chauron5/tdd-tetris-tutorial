@@ -38,7 +38,7 @@ public class Piece implements BoardPiece {
        return blocks.length;
    }
 
-   public final  is_hollow_at(final int i, final int j) {
+   public final boolean is_hollow_at(final int i, final int j) {
        return blocks[i][j].toString().equals(String.valueOf(BoardPiece.EMPTY));
    }
 
@@ -70,7 +70,7 @@ public class Piece implements BoardPiece {
         return reversedBlocks;
     }
 
-    private final Piece(final Block[][] blocks) {
+    private Piece(final Block[][] blocks) {
         this.blocks = blocks;
     }
 
