@@ -1,30 +1,62 @@
 package tetris;
 
-public class Block implements BoardPiece{
-  private final char X;
+/**
+ * Most simple element of tetris.
+ */
+public class Block implements BoardPiece {
+  /**
+   * Char thar defines the block.
+   */
+  private final char value;
 
-  public Block(char c){
-    this.X = c;
+  /**
+  * Constructor.
+  * @param c char of the block.
+  */
+  public Block(final char c) {
+    this.value = c;
   }
 
-  public char getValue(){
-    return this.X;
+  /**
+  * Returns the char of the block.
+  * @return char of the blovk.
+  */
+  public final char getValue() {
+    return this.value;
   }
 
-  public String toString(){
-    return new String(""+this.X);
+  /**
+  * returns the char of the block as String.
+  * @return char of the block as String.
+  */
+  public final String toString() {
+    return new String("" + this.value);
   }
 
-  public int width() {
+  /**
+   * Get the with of the block.
+   * @return int with of the block.
+   */
+  public final int width() {
         return 1;
     }
 
-    public int height() {
+    /**
+     * Get the height of the block.
+     * @return int height of the block.
+     */
+    public final int height() {
         return 1;
     }
 
-    public boolean is_hollow_at(int i, int j) {
-        return ((i!=0) && (j!=0));
+    /**
+     * Returns if the block is at a defined position.
+     * @param i int that represents the row.
+     * @param j int that represents the column.
+     * @return int height of the block.
+     */
+    public final boolean is_hollow_at(final int i, final int j) {
+        return ((i != 0) && (j != 0));
 
     }
 

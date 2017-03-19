@@ -2,14 +2,14 @@ package tetris;
 
 public interface BoardPiece {
 
-    public static final char EMPTY = '.';
+    final char EMPTY = '.';
 
-    public String toString();
+    String toString();
 
-    public int width();
+    int width();
 
-    public int height();
+    int height();
 
-    public boolean is_hollow_at(int i, int j);
+    boolean is_hollow_at(int i, int j);
 
 }
