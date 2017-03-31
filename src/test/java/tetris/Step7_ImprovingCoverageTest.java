@@ -11,10 +11,10 @@ public class Step7_ImprovingCoverageTest {
       Block b = new Block('X');
       assertEquals(b.getValue(), 'X');
 
-      assertFalse(b.is_hollow_at(0,0));
-      assertFalse(b.is_hollow_at(1,0));
-      assertFalse(b.is_hollow_at(0,1));
-      assertTrue(b.is_hollow_at(1,1));
+      assertFalse(b.isHollowAt(0,0));
+      assertFalse(b.isHollowAt(1,0));
+      assertFalse(b.isHollowAt(0,1));
+      assertTrue(b.isHollowAt(1,1));
 
       Piece p = new Piece("");
       assertEquals(p.toString(), "");

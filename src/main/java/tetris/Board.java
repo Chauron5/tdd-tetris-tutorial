@@ -21,15 +21,15 @@ public class Board {
     /**
     * Piece falling.
     */
-    private BoardPiece falling_block;
+    private BoardPiece fallingBlock;
     /**
     * Current block row.
     */
-    private int current_block_row;
+    private int currentBlockRow;
     /**
     * Current block column.
     */
-    private int current_block_column;
+    private int currentBlockColumn;
     /**
     * MAtrix representing the board.
     */
@@ -37,7 +37,7 @@ public class Board {
     /**
     * Indicates if piece reached bottom.
     */
-    private boolean last_tick;
+    private boolean lastTick;
 
     /**
     * Constructor.
@@ -47,10 +47,10 @@ public class Board {
     public Board(final int numRows, final int numColumns) {
         this.rows = numRows;
         this.columns = numColumns;
-        this.falling_block = null;
+        this.fallingBlock = null;
         this.board = new char[numRows][numColumns];
-        fill_with(board, BoardPiece.EMPTY);
-        this.last_tick = false;
+        fillWith(board, BoardPiece.EMPTY);
+        this.lastTick = false;
     }
 
     /**
@@ -61,12 +61,12 @@ public class Board {
         String s = "";
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if (falling_block_is_at(i, j)) {
+                if (fallingBlockIsAt(i, j)) {
                     char[][] block =
-                      new char[falling_block.width()][falling_block.height()];
-                    fill_with(block, falling_block.toString());
-                    s += block [(i - current_block_row)]
-                               [(j - current_block_column)];
+                      new char[fallingBlock.width()][fallingBlock.height()];
+                    fillWith(block, fallingBlock.toString());
+                    s += block [(i - currentBlockRow)]
+                               [(j - currentBlockColumn)];
                 } else {
                     char[] c = {board[i][j] };
                     s += new String(c);
@@ -82,19 +82,20 @@ public class Board {
     * @return true if a piece is falling.
     */
     public final boolean hasFalling() {
-        return (falling_block != null);
+        return (fallingBlock != null);
     }
 
+
     /**
-    * Drops a piece into board.
-    * @param b BoardPiece to drop into board.
-    * @throws IllegalStateException
-    */
+     * Drops a piece into board.
+     * @param b BoarPiece
+     * @throws IllegalStateException exception
+     */
     public final void drop(final BoardPiece b) throws IllegalStateException {
-        if ((falling_block == null) || (last_tick)) {
-            falling_block = b;
-            current_block_row = 0;
-            current_block_column = (this.columns / 2) - (b.width() / 2);
+        if ((fallingBlock == null) || (lastTick)) {
+            fallingBlock = b;
+            currentBlockRow = 0;
+            currentBlockColumn = (this.columns / 2) - (b.width() / 2);
         } else {
             throw new IllegalStateException(Board.ALREADY_FALLING);
         }
@@ -104,16 +105,16 @@ public class Board {
     * Moves falling piece down.
     */
     public final void tick() {
-        if (falling_block != null) {
-            if (!last_tick) {
-                current_block_row++;
-                if (reached_bottom() || touched_another_block()) {
-                    last_tick = true;
+        if (fallingBlock != null) {
+            if (!lastTick) {
+                currentBlockRow++;
+                if (reachedBottom() || touchedAnotherBlock()) {
+                    lastTick = true;
                 }
             } else {
-                fill_with(board, toString());
-                falling_block = null;
-                last_tick = false;
+                fillWith(board, toString());
+                fallingBlock = null;
+                lastTick = false;
             }
         }
     }
@@ -123,7 +124,7 @@ public class Board {
     * @param matrix char[][] to fill.
     * @param c char to fill with.
     */
-    private void fill_with(final char[][] matrix, final char c) {
+    private void fillWith(final char[][] matrix, final char c) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 matrix[i][j] = c;
@@ -136,7 +137,7 @@ public class Board {
     * @param matrix char[][] to fill.
     * @param s String to fill with.
     */
-    private void fill_with(final char[][] matrix, final String s) {
+    private void fillWith(final char[][] matrix, final String s) {
         String[] mrows = s.split("\n");
         for (int i = 0; i < mrows.length; i++) {
             char[] column = mrows[i].toCharArray();
@@ -150,28 +151,28 @@ public class Board {
     * Indicates if a piece reached the bottom.
     * @return true if piece reached bottom, false otherwise.
     */
-    private boolean reached_bottom() {
-        int reached_row = current_block_row;
-        String[] s = falling_block.toString().split("\n");
+    private boolean reachedBottom() {
+        int reachedRow = currentBlockRow;
+        String[] s = fallingBlock.toString().split("\n");
 
         for (int i = 0; i < s.length; i++) {
             if (s[i].replace(BoardPiece.EMPTY, ' ').trim().length() != 0) {
-                reached_row++;
+                reachedRow++;
             }
         }
 
-        return (reached_row == rows);
+        return (reachedRow == rows);
     }
 
     /**
     * Indicates if a piece touched another block.
     * @return true if piece touched another block, false otherwise.
     */
-    private boolean touched_another_block() {
+    private boolean touchedAnotherBlock() {
         for (int i = 0; i < rows - 1; i++) {
             for (int j = 0; j < columns; j++) {
                 if ((board[i + 1][j] != BoardPiece.EMPTY)
-                  && falling_block_is_at(i, j)) {
+                  && fallingBlockIsAt(i, j)) {
                     return true;
                 }
             }
@@ -183,13 +184,13 @@ public class Board {
     * indicates if the piece can be moved left.
     * @return true if the piece can be moved left.
     */
-    public final boolean can_move_left() {
-      if (falling_block_is_at_column(0)) {
+    public final boolean canMoveLeft() {
+      if (fallingBlockIsAtColumn(0)) {
         return false;
       }
       for (int i = 0; i < rows - 1; i++) {
         for (int j = 0; j < columns; j++) {
-          if (falling_block_is_at(i, j)) {
+          if (fallingBlockIsAt(i, j)) {
             if (board[i][j - 1] != BoardPiece.EMPTY) {
               return false;
             }
@@ -203,13 +204,13 @@ public class Board {
     * indicates if the piece can be moved rigth.
     * @return true if the piece can be moved rigth.
     */
-    public final boolean can_move_rigth() {
-      if (falling_block_is_at_column(columns - 1)) {
+    public final boolean canMoveRigth() {
+      if (fallingBlockIsAtColumn(columns - 1)) {
         return false;
       }
       for (int i = 0; i < rows - 1; i++) {
         for (int j = columns - 1; j >= 0; j--) {
-          if (falling_block_is_at(i, j)) {
+          if (fallingBlockIsAt(i, j)) {
             if (board[i][j + 1] != BoardPiece.EMPTY) {
               return false;
             }
@@ -225,15 +226,15 @@ public class Board {
     * @param column column.
     * @return true if block is at that position, false otherwise.
     */
-    private boolean falling_block_is_at(final int row, final int column) {
-        if (falling_block != null) {
-            return ((current_block_row <= row)
-                    && (row < current_block_row + falling_block.height())
-                    && (current_block_column <= column)
-                    && (column < current_block_column + falling_block.width())
-                    && (!falling_block.is_hollow_at(row - current_block_row,
-                      column - current_block_column
-                      + falling_block.width() / 2 - 1)));
+    private boolean fallingBlockIsAt(final int row, final int column) {
+        if (fallingBlock != null) {
+            return ((currentBlockRow <= row)
+                    && (row < currentBlockRow + fallingBlock.height())
+                    && (currentBlockColumn <= column)
+                    && (column < currentBlockColumn + fallingBlock.width())
+                    && (!fallingBlock.isHollowAt(row - currentBlockRow,
+                      column - currentBlockColumn
+                      + fallingBlock.width() / 2 - 1)));
         } else {
             return false;
         }
@@ -242,10 +243,11 @@ public class Board {
     /**
     * Indicates if the block is at the column.
     * @param column column
+    * @return true if falling block is at column (column)
     */
-    private boolean falling_block_is_at_column(final int column) {
+    private boolean fallingBlockIsAtColumn(final int column) {
       for (int i = 0; i < this.rows; i++) {
-        if (falling_block_is_at(i, column)) {
+        if (fallingBlockIsAt(i, column)) {
           return true;
         }
       }
@@ -255,9 +257,9 @@ public class Board {
     /**
     * Moves piece left.
     */
-    public void moveLeft() {
-      if (can_move_left()) {
-        this.current_block_column--;
+    public final void moveLeft() {
+      if (canMoveLeft()) {
+        this.currentBlockColumn--;
       }
     }
 
@@ -265,15 +267,15 @@ public class Board {
     * Moves piece rigth.
     */
     public final void moveRigth() {
-      if (can_move_rigth()) {
-        this.current_block_column++;
+      if (canMoveRigth()) {
+        this.currentBlockColumn++;
       }
     }
 
     /**
     * iMoves piece down.
     */
-    public void moveDown() {
+    public final void moveDown() {
       this.tick();
     }
 }

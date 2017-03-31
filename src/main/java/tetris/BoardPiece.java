@@ -1,14 +1,13 @@
 package tetris;
 
 /**
- * A class representing a piece of
- * the board
+ * A class representing a piece of the board.
  */
 public interface BoardPiece {
     /**
-     * Char thar represents the value of the piece
+     * Char thar represents the value of the piece.
      */
-    final char EMPTY = '.';
+    char EMPTY = '.';
 
     /**
     * @return String of the piece
@@ -30,6 +29,6 @@ public interface BoardPiece {
     * @param j position(column) at the piece.
     * @return true if the piece is not empty at  point (i,j).
     */
-    boolean is_hollow_at(int i, int j);
+    boolean isHollowAt(int i, int j);
 
 }

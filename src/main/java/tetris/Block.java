@@ -56,9 +56,10 @@ public class Block implements BoardPiece {
      * @param j int that represents the column.
      * @return int height of the block.
      */
-    public final boolean is_hollow_at(final int i, final int j) {
+    public final boolean isHollowAt(final int i, final int j) {
         return ((i != 0) && (j != 0));
 
     }
 
 }
+
