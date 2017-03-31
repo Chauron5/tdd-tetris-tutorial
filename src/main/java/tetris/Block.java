@@ -30,8 +30,7 @@ public class Block implements BoardPiece {
   * @return char of the block as String.
   */
   public final String toString() {
-    String newString = "" + this.value;
-    return newString;
+    return Character.toString(this.value);
   }
 
   /**
